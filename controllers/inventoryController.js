@@ -4,7 +4,7 @@ const userModel = require("../models/userModel");
 
 const createInventoryController = async (req, res) => {
   try {
-    const { email, inventoryType } = req.body;
+    const { email } = req.body;
     // validation
     const user = await userModel.findOne({ email });
     if (!user) {
@@ -69,6 +69,8 @@ const createInventoryController = async (req, res) => {
         });
       }
       req.body.hospital = user?._id;
+    } else {
+      req.body.donar = user?._id;
     }
     // save record
     const inventory = new inventoryModel(req.body);
@@ -111,4 +113,61 @@ const getInventoryController = async (req, res) => {
   }
 };
 
-module.exports = { createInventoryController, getInventoryController };
+const getDonarsController = async (req, res) => {
+  try {
+    const organisation = req.body.userId;
+    // find donar ids
+    const donarId = await inventoryModel.distinct("donar", {
+      organisation,
+    });
+    // find donars
+    const donars = await userModel.find({ _id: { $in: donarId } });
+
+    return res.status(200).send({
+      success: true,
+      message: "Donars data fetched successfully",
+      donars,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in donar records",
+      error,
+    });
+  }
+};
+
+const getHospitalsController = async (req, res) => {
+  try {
+    const organisation = req.body.userId;
+    // find hospital ids
+    const hospitalId = await inventoryModel.distinct("hospital", {
+      organisation,
+    });
+    // find hospitals
+    const hospitals = await userModel.find({
+      _id: { $in: hospitalId },
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Hospital data fetched successfully",
+      hospitals,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in hospital records",
+      error,
+    });
+  }
+};
+
+module.exports = {
+  createInventoryController,
+  getInventoryController,
+  getDonarsController,
+  getHospitalsController,
+};
