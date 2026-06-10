@@ -66,11 +66,14 @@ const loginController = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+    const userData = user.toObject();
+    delete userData.password;
+
     return res.status(200).send({
       success: true,
       message: "Login Successfull",
       token,
-      user,
+      user: userData,
     });
   } catch (error) {
     console.log(error);
@@ -84,7 +87,9 @@ const loginController = async (req, res) => {
 
 const currentUserController = async (req, res) => {
   try {
-    const user = await userModel.findOne({ _id: req.body.userId });
+    const user = await userModel
+      .findOne({ _id: req.body.userId })
+      .select("-password");
     return res.status(200).send({
       success: true,
       message: "User fetched successfully",

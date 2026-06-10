@@ -52,7 +52,7 @@ const Home = () => {
                   <th scope="col">Blood Group</th>
                   <th scope="col">Inventory Type</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Donar Email</th>
+                  <th scope="col">Donar / Hospital</th>
                   <th scope="col">Date</th>
                 </tr>
               </thead>
@@ -63,7 +63,11 @@ const Home = () => {
                     <td>{record?.bloodGroup}</td>
                     <td>{record?.inventoryType}</td>
                     <td>{record?.quantity} (ML)</td>
-                    <td>{record?.email}</td>
+                    <td>
+                      {record?.inventoryType === "in"
+                        ? record?.donar?.name || record?.email
+                        : record?.hospital?.hospitalName || record?.email}
+                    </td>
                     <td>
                       {moment(record?.createdAt).format("DD/MM/YYYY hh:mm A")}
                     </td>

@@ -17,6 +17,8 @@ const createInventoryController = async (req, res) => {
     //   throw new Error("Not a hospital account");
     // }
 
+    req.body.organisation = req.body.userId;
+
     if (req.body.inventoryType == "out") {
       const requestedBloodGroup = req.body.bloodGroup;
       const requestedQuantity = req.body.quantity;
@@ -165,9 +167,170 @@ const getHospitalsController = async (req, res) => {
   }
 };
 
+const BLOOD_GROUPS = ["O+", "O-", "AB+", "AB-", "A+", "A-", "B+", "B-"];
+
+const getDonorOrganisationsController = async (req, res) => {
+  try {
+    const donarId = req.body.userId;
+    const orgIds = await inventoryModel.distinct("organisation", {
+      donar: donarId,
+      inventoryType: "in",
+    });
+    const organisations = await userModel.find({ _id: { $in: orgIds } });
+    return res.status(200).send({
+      success: true,
+      message: "Organisations fetched successfully",
+      organisations,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching organisations",
+      error,
+    });
+  }
+};
+
+const getDonorDonationsController = async (req, res) => {
+  try {
+    const donarId = req.body.userId;
+    const donations = await inventoryModel
+      .find({ donar: donarId, inventoryType: "in" })
+      .populate("organisation")
+      .sort({ createdAt: -1 });
+    return res.status(200).send({
+      success: true,
+      message: "Donations fetched successfully",
+      donations,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching donations",
+      error,
+    });
+  }
+};
+
+const getAnalyticsController = async (req, res) => {
+  try {
+    const organisation = req.body.userId;
+    const bloodGroups = await Promise.all(
+      BLOOD_GROUPS.map(async (bloodGroup) => {
+        const totalInResult = await inventoryModel.aggregate([
+          {
+            $match: {
+              organisation: new mongoose.Types.ObjectId(organisation),
+              inventoryType: "in",
+              bloodGroup,
+            },
+          },
+          { $group: { _id: null, total: { $sum: "$quantity" } } },
+        ]);
+        const totalOutResult = await inventoryModel.aggregate([
+          {
+            $match: {
+              organisation: new mongoose.Types.ObjectId(organisation),
+              inventoryType: "out",
+              bloodGroup,
+            },
+          },
+          { $group: { _id: null, total: { $sum: "$quantity" } } },
+        ]);
+        const totalIn = totalInResult[0]?.total || 0;
+        const totalOut = totalOutResult[0]?.total || 0;
+        return {
+          bloodGroup,
+          totalIn,
+          totalOut,
+          totalAvailable: totalIn - totalOut,
+        };
+      })
+    );
+
+    const recentTransactions = await inventoryModel
+      .find({ organisation })
+      .populate("donar")
+      .populate("hospital")
+      .sort({ createdAt: -1 })
+      .limit(10);
+
+    return res.status(200).send({
+      success: true,
+      message: "Analytics fetched successfully",
+      bloodGroups,
+      recentTransactions,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching analytics",
+      error,
+    });
+  }
+};
+
+const getHospitalOrganisationsController = async (req, res) => {
+  try {
+    const hospitalId = req.body.userId;
+    const orgIds = await inventoryModel.distinct("organisation", {
+      hospital: hospitalId,
+      inventoryType: "out",
+    });
+
+    const records = await inventoryModel
+      .find({
+        organisation: { $in: orgIds },
+        inventoryType: "in",
+      })
+      .populate("donar")
+      .populate("organisation")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).send({
+      success: true,
+      message: "Organisation donation records fetched successfully",
+      records,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching organisation records",
+      error,
+    });
+  }
+};
+
+const getHospitalConsumersController = async (req, res) => {
+  try {
+    const hospitalId = req.body.userId;
+    const consumptions = await inventoryModel
+      .find({ hospital: hospitalId, inventoryType: "out" })
+      .populate("organisation")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).send({
+      success: true,
+      message: "Consumption records fetched successfully",
+      consumptions,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error fetching consumption records",
+      error,
+    });
+  }
+};
+
 module.exports = {
   createInventoryController,
   getInventoryController,
   getDonarsController,
   getHospitalsController,
+  getDonorOrganisationsController,
+  getDonorDonationsController,
+  getAnalyticsController,
+  getHospitalOrganisationsController,
+  getHospitalConsumersController,
 };

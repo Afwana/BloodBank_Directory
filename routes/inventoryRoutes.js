@@ -1,25 +1,81 @@
 const express = require("express");
 const authMiddlleware = require("../middlewares/authMiddlleware");
+const roleMiddleware = require("../middlewares/roleMiddleware");
 const {
   createInventoryController,
   getInventoryController,
   getDonarsController,
   getHospitalsController,
+  getDonorOrganisationsController,
+  getDonorDonationsController,
+  getAnalyticsController,
+  getHospitalOrganisationsController,
+  getHospitalConsumersController,
 } = require("../controllers/inventoryController");
 
 const router = express.Router();
 
-// Routes
-// ADD INVENTORY || POST
-router.post("/create-inventory", authMiddlleware, createInventoryController);
+router.post(
+  "/create-inventory",
+  authMiddlleware,
+  roleMiddleware("organisation"),
+  createInventoryController
+);
 
-// GET ALL BLOOD RECORDS
-router.get("/get-inventory", authMiddlleware, getInventoryController);
+router.get(
+  "/get-inventory",
+  authMiddlleware,
+  roleMiddleware("organisation"),
+  getInventoryController
+);
 
-// GET DONARS
-router.get("/get-donars", authMiddlleware, getDonarsController);
+router.get(
+  "/get-donars",
+  authMiddlleware,
+  roleMiddleware("organisation"),
+  getDonarsController
+);
 
-// GET HOSPITALS
-router.get("/get-hospitals", authMiddlleware, getHospitalsController);
+router.get(
+  "/get-hospitals",
+  authMiddlleware,
+  roleMiddleware("organisation"),
+  getHospitalsController
+);
+
+router.get(
+  "/analytics",
+  authMiddlleware,
+  roleMiddleware("organisation"),
+  getAnalyticsController
+);
+
+router.get(
+  "/donor-organisations",
+  authMiddlleware,
+  roleMiddleware("donar"),
+  getDonorOrganisationsController
+);
+
+router.get(
+  "/donor-donations",
+  authMiddlleware,
+  roleMiddleware("donar"),
+  getDonorDonationsController
+);
+
+router.get(
+  "/hospital-organisations",
+  authMiddlleware,
+  roleMiddleware("hospital"),
+  getHospitalOrganisationsController
+);
+
+router.get(
+  "/hospital-consumers",
+  authMiddlleware,
+  roleMiddleware("hospital"),
+  getHospitalConsumersController
+);
 
 module.exports = router;

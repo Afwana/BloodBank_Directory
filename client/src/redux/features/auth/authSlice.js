@@ -52,6 +52,9 @@ const authSlice = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.user = payload.user;
+      if (payload?.user?.role) {
+        localStorage.setItem("role", payload.user.role);
+      }
     });
     builder.addCase(getCurrentUser.rejected, (state, { payload }) => {
       state.loading = false;

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../../services/API";
 import { toast } from "react-toastify";
+import { roleRedirects } from "../../../utils/roleConfig";
 
 export const userLogin = createAsyncThunk(
   "auth/login",
@@ -11,8 +12,8 @@ export const userLogin = createAsyncThunk(
       if (data.success) {
         alert(data.message);
         localStorage.setItem("token", data.token);
-        // toast.success(data.message);
-        window.location.replace("/");
+        localStorage.setItem("role", role);
+        window.location.replace(roleRedirects[role] || "/");
       }
       return data;
     } catch (error) {
@@ -73,7 +74,7 @@ export const userRegister = createAsyncThunk(
 // current user
 export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
-  async ({ rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const res = await API.get("/auth/current-user");
       if (res?.data) {
