@@ -21,7 +21,7 @@ const HospitalOrganisations = () => {
   return (
     <Layout>
       <div className="p-4">
-        <h4 className="mb-3">Donors Under Supplying Organisations</h4>
+        <h4 className="mb-3">Donors</h4>
         <table className="table table-striped table-hover">
           <thead>
             <tr>
@@ -38,7 +38,7 @@ const HospitalOrganisations = () => {
             {data?.length === 0 && (
               <tr>
                 <td colSpan="7" className="text-center">
-                  No donor records from supplying organisations yet.
+                  No donor records found yet.
                 </td>
               </tr>
             )}
