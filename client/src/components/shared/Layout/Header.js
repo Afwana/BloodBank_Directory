@@ -34,7 +34,8 @@ const Header = () => {
             </button>
             <button
               className="btn btn-danger align-middle"
-              onClick={handleLogout}>
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </div>

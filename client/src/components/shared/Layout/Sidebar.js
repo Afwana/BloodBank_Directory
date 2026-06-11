@@ -17,7 +17,8 @@ const Sidebar = () => {
           return (
             <div
               className={`menu-item ${isActive && "active"}`}
-              key={menu.name}>
+              key={menu.name}
+            >
               <i className={menu.icon}></i>
               <Link to={menu.path}>{menu.name}</Link>
             </div>
