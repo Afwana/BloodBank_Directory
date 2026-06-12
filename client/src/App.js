@@ -67,21 +67,21 @@ function App() {
 
         {/* Donor routes */}
         <Route
-          path="/donar/organisations"
-          element={
-            <ProtectedRoute>
-              <RoleRoute allowedRoles={["donar"]}>
-                <DonorOrganisations />
-              </RoleRoute>
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/donar/donations"
           element={
             <ProtectedRoute>
               <RoleRoute allowedRoles={["donar"]}>
                 <DonorDonations />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/donar/organisations"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["donar"]}>
+                <DonorOrganisations />
               </RoleRoute>
             </ProtectedRoute>
           }

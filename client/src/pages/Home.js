@@ -34,14 +34,17 @@ const Home = () => {
       ) : (
         <>
           <div className="d-flex flex-row justify-content-end align-items-center">
-            <h4
-              className="me-4"
+            <h5
+              className="me-4 add-btn"
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
-              style={{ cursor: "pointer" }}>
-              <i className="fa-solid fa-plus text-success py-4"></i> Add
-              Inventory
-            </h4>
+            >
+              <i
+                className="fa-solid fa-plus"
+                style={{ color: "white", marginRight: "5px" }}
+              ></i>{" "}
+              Add Inventory
+            </h5>
             <Modal />
           </div>
           <div className="p-4">

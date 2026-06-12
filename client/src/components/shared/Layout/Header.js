@@ -26,7 +26,7 @@ const Header = () => {
             </h4>
           </div>
           <div className="navbar-nav d-flex flex-row justify-content-end align-items-start gap-2">
-            <button className="btn btn-dark align-middle fs-6">
+            <button className="btn align-middle fs-6 button-user">
               <BiUserCircle size={20} />{" "}
               {user?.name || user?.hospitalName || user?.organisationName}{" "}
               &nbsp;

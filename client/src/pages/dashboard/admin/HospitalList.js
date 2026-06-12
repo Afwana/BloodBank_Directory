@@ -20,7 +20,8 @@ const HospitalList = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this hospital?")) return;
+    if (!window.confirm("Are you sure you want to delete this hospital?"))
+      return;
     try {
       const { data } = await API.delete(`/admin/user/${id}`);
       if (data?.success) {
@@ -35,7 +36,7 @@ const HospitalList = () => {
   return (
     <Layout>
       <div className="p-4">
-        <h4 className="mb-3">Manage Hospitals</h4>
+        <h4 className="mb-3">Hospitals</h4>
         <table className="table table-striped table-hover">
           <thead>
             <tr>
@@ -69,7 +70,8 @@ const HospitalList = () => {
                 <td>
                   <button
                     className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(user._id)}>
+                    onClick={() => handleDelete(user._id)}
+                  >
                     Delete
                   </button>
                 </td>

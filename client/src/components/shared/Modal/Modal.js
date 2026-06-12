@@ -41,18 +41,24 @@ const Modal = () => {
       data-bs-keyboard="false"
       tabIndex="-1"
       aria-labelledby="staticBackdropLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="staticBackdropLabel">
+            <h5
+              className="modal-title"
+              id="staticBackdropLabel"
+              style={{ color: "#0f766e" }}
+            >
               Manage Blood Record
             </h5>
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"></button>
+              aria-label="Close"
+            ></button>
           </div>
           <div className="modal-body">
             <InputType
@@ -97,7 +103,8 @@ const Modal = () => {
             <select
               className="form-select mb-3"
               aria-label="Default select example"
-              onChange={(e) => setBloodGroup(e.target.value)}>
+              onChange={(e) => setBloodGroup(e.target.value)}
+            >
               <option defaultValue={"select blood group"}>
                 select blood group
               </option>
@@ -122,13 +129,15 @@ const Modal = () => {
             <button
               type="button"
               className="btn btn-secondary"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal"
+            >
               Close
             </button>
             <button
               type="button"
               className="btn btn-primary"
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               Add
             </button>
           </div>

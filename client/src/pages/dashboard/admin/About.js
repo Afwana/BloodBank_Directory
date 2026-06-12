@@ -20,7 +20,7 @@ const About = () => {
   return (
     <Layout>
       <div className="p-4">
-        <div className="card border-danger mb-4">
+        <div className="card mb-4 abt-card">
           <div className="card-body">
             <h3 className="text-danger fw-bold">Blood Bank Directory</h3>
             <p className="lead mt-3">
@@ -33,9 +33,11 @@ const About = () => {
               and hospitals, and ensure blood reaches those who need it most.
             </p>
             <hr />
-            <h5>Platform Features</h5>
+            <h5 style={{ color: "#0f766e" }}>Platform Features</h5>
             <ul>
-              <li>Donors can track donations and organisations they donated to</li>
+              <li>
+                Donors can track donations and organisations they donated to
+              </li>
               <li>
                 Organisations manage blood IN/OUT inventory with analytics
               </li>
@@ -45,10 +47,15 @@ const About = () => {
           </div>
         </div>
 
-        <h5 className="mb-3">Platform Overview</h5>
+        <h5 className="mb-3" style={{ color: "#ff0000" }}>
+          Platform Overview
+        </h5>
         <div className="row g-3">
           <div className="col-md-3">
-            <div className="card text-center border-success">
+            <div
+              className="card text-center kpi-card"
+              style={{ backgroundColor: "#b9f2c4" }}
+            >
               <div className="card-body">
                 <h2 className="text-success">{stats.donars || 0}</h2>
                 <p className="mb-0">Total Donors</p>
@@ -56,7 +63,10 @@ const About = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card text-center border-primary">
+            <div
+              className="card text-center kpi-card"
+              style={{ backgroundColor: "#cfe2ff" }}
+            >
               <div className="card-body">
                 <h2 className="text-primary">{stats.hospitals || 0}</h2>
                 <p className="mb-0">Total Hospitals</p>
@@ -64,7 +74,10 @@ const About = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card text-center border-warning">
+            <div
+              className="card text-center kpi-card"
+              style={{ backgroundColor: "#fbf6c0" }}
+            >
               <div className="card-body">
                 <h2 className="text-warning">{stats.organisations || 0}</h2>
                 <p className="mb-0">Total Organisations</p>
@@ -72,7 +85,10 @@ const About = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card text-center border-danger">
+            <div
+              className="card text-center kpi-card"
+              style={{ backgroundColor: "#fad2d6" }}
+            >
               <div className="card-body">
                 <h2 className="text-danger">{stats.inventoryCount || 0}</h2>
                 <p className="mb-0">Blood Transactions</p>

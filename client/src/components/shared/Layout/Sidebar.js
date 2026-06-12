@@ -16,7 +16,7 @@ const Sidebar = () => {
           const isActive = location.pathname === menu.path;
           return (
             <div
-              className={`menu-item ${isActive && "active"}`}
+              className={`menu-item ${isActive ? "active" : ""}`}
               key={menu.name}
             >
               <i className={menu.icon}></i>

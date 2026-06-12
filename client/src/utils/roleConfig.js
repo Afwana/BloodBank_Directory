@@ -7,14 +7,14 @@ export const roleRedirects = {
 
 export const donarMenu = [
   {
-    name: "Organisation",
-    path: "/donar/organisations",
-    icon: "fa-sharp fa-solid fa-building-ngo",
-  },
-  {
     name: "Donation",
     path: "/donar/donations",
     icon: "fa-solid fa-hand-holding-medical",
+  },
+  {
+    name: "Organisation",
+    path: "/donar/organisations",
+    icon: "fa-sharp fa-solid fa-building-ngo",
   },
 ];
 
@@ -22,7 +22,11 @@ export const organisationMenu = [
   { name: "Inventory", path: "/", icon: "fa-solid fa-warehouse" },
   { name: "Donar", path: "/donar", icon: "fa-solid fa-hand-holding-medical" },
   { name: "Hospital", path: "/hospital", icon: "fa-solid fa-hospital" },
-  { name: "Analytics", path: "/organisation/analytics", icon: "fa-solid fa-chart-line" },
+  {
+    name: "Analytics",
+    path: "/organisation/analytics",
+    icon: "fa-solid fa-chart-line",
+  },
 ];
 
 export const hospitalMenu = [
@@ -39,8 +43,21 @@ export const hospitalMenu = [
 ];
 
 export const adminMenu = [
-  { name: "Donar List", path: "/admin/donars", icon: "fa-solid fa-hand-holding-medical" },
-  { name: "Hospital List", path: "/admin/hospitals", icon: "fa-solid fa-hospital" },
+  {
+    name: "Dashboard",
+    path: "/admin",
+    icon: "fa-solid fa-tachograph-digital",
+  },
+  {
+    name: "Donar List",
+    path: "/admin/donars",
+    icon: "fa-solid fa-hand-holding-medical",
+  },
+  {
+    name: "Hospital List",
+    path: "/admin/hospitals",
+    icon: "fa-solid fa-hospital",
+  },
   {
     name: "Organisation List",
     path: "/admin/organisations",

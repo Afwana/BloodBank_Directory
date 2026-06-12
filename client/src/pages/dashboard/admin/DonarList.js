@@ -35,7 +35,7 @@ const DonarList = () => {
   return (
     <Layout>
       <div className="p-4">
-        <h4 className="mb-3">Manage Donors</h4>
+        <h4 className="mb-3">Donors</h4>
         <table className="table table-striped table-hover">
           <thead>
             <tr>
@@ -67,7 +67,8 @@ const DonarList = () => {
                 <td>
                   <button
                     className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(user._id)}>
+                    onClick={() => handleDelete(user._id)}
+                  >
                     Delete
                   </button>
                 </td>
