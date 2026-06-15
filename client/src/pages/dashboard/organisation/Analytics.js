@@ -29,7 +29,7 @@ const Analytics = () => {
         <div className="row g-3 mb-4">
           {bloodGroups?.map((item) => (
             <div className="col-md-3" key={item.bloodGroup}>
-              <div className="card border-danger h-100">
+              <div className="card border-danger h-100 analytic-card">
                 <div className="card-body text-center">
                   <h5 className="card-title text-danger">{item.bloodGroup}</h5>
                   <p className="mb-1">
@@ -42,10 +42,9 @@ const Analytics = () => {
                     <strong>Available:</strong>{" "}
                     <span
                       className={
-                        item.totalAvailable > 0
-                          ? "text-success"
-                          : "text-danger"
-                      }>
+                        item.totalAvailable > 0 ? "text-success" : "text-danger"
+                      }
+                    >
                       {item.totalAvailable} ML
                     </span>
                   </p>
@@ -84,7 +83,8 @@ const Analytics = () => {
                       record.inventoryType === "in"
                         ? "bg-success"
                         : "bg-warning text-dark"
-                    }`}>
+                    }`}
+                  >
                     {record.inventoryType?.toUpperCase()}
                   </span>
                 </td>
@@ -95,9 +95,7 @@ const Analytics = () => {
                     ? record.donar?.name || record.email
                     : record.hospital?.hospitalName || record.email}
                 </td>
-                <td>
-                  {moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}
-                </td>
+                <td>{moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}</td>
               </tr>
             ))}
           </tbody>
