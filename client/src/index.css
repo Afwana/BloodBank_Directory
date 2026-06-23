@@ -2,7 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+body {
+  overflow-x: hidden;
 }
 
 h4 {
@@ -131,12 +135,13 @@ h4 {
 }
 
 .analytic-card {
+  border: none;
   background-color: #f8e7e7;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
 }
 
 .analytic-card:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* ======== Media Queries ======== */

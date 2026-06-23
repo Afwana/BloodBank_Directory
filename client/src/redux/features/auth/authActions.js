@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../../services/API";
-import { toast } from "react-toastify";
 import { roleRedirects } from "../../../utils/roleConfig";
+import { toast } from "sonner";
 
 export const userLogin = createAsyncThunk(
   "auth/login",
@@ -10,7 +10,7 @@ export const userLogin = createAsyncThunk(
       const { data } = await API.post("/auth/login", { role, email, password });
       // store token
       if (data.success) {
-        alert(data.message);
+        toast.success(data.message);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", role);
         window.location.replace(roleRedirects[role] || "/");
@@ -23,7 +23,7 @@ export const userLogin = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-  }
+  },
 );
 
 // register
@@ -41,7 +41,7 @@ export const userRegister = createAsyncThunk(
       website,
       address,
     },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const { data } = await API.post("/auth/register", {
@@ -56,9 +56,8 @@ export const userRegister = createAsyncThunk(
         address,
       });
       if (data?.success) {
-        alert("User Registered Successfully");
+        toast.success("User Registered Successfully");
         window.location.replace("/login");
-        // toast.success("User Registered Successfully");
       }
       return data;
     } catch (error) {
@@ -68,7 +67,7 @@ export const userRegister = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-  }
+  },
 );
 
 // current user
@@ -88,5 +87,5 @@ export const getCurrentUser = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
-  }
+  },
 );

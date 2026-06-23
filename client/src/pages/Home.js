@@ -5,6 +5,7 @@ import Spinner from "../components/shared/Spinner";
 import Modal from "../components/shared/Modal/Modal";
 import API from "./../services/API";
 import moment from "moment";
+import { toast } from "sonner";
 
 const Home = () => {
   const { loading, error } = useSelector((state) => state.auth);
@@ -28,7 +29,7 @@ const Home = () => {
 
   return (
     <Layout>
-      {error && <span>{alert(error)}</span>}
+      {error && <span>{toast.error(error)}</span>}
       {loading ? (
         <Spinner />
       ) : (

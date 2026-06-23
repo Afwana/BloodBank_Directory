@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../../components/shared/Layout/Layout";
 import API from "../../../services/API";
 import moment from "moment";
+import { toast } from "sonner";
 
 const OrganisationList = () => {
   const [users, setUsers] = useState([]);
@@ -25,11 +26,11 @@ const OrganisationList = () => {
     try {
       const { data } = await API.delete(`/admin/user/${id}`);
       if (data?.success) {
-        alert("Organisation deleted successfully");
+        toast.success("Organisation deleted successfully");
         fetchUsers();
       }
     } catch (error) {
-      alert(error.response?.data?.message || "Delete failed");
+      toast.error(error.response?.data?.message || "Delete failed");
     }
   };
 

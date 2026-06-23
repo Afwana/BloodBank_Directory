@@ -2,6 +2,7 @@ import React from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Header = () => {
   const { user } = useSelector((state) => state?.auth);
@@ -10,7 +11,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    alert("Logout Successfully!");
+    toast.success("Logout Successfully!");
     navigate("/login");
   };
 

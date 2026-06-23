@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 import RoleRoute from "./components/Routes/RoleRoute";
@@ -21,7 +21,7 @@ import OrganisationList from "./pages/dashboard/admin/OrganisationList";
 function App() {
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Routes>
         {/* Organisation routes */}
         <Route

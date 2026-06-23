@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { userLogin, userRegister } from "../redux/features/auth/authActions";
 import store from "../redux/store";
 
@@ -5,7 +6,7 @@ export const handleLogin = (e, role, email, password) => {
   e.preventDefault();
   try {
     if (!role || !email || !password) {
-      return alert("Please provide all fields!!!");
+      return toast.warning("Please provide all fields!!!");
     }
     store.dispatch(userLogin({ role, email, password }));
   } catch (error) {
@@ -23,7 +24,7 @@ export const handleRegister = (
   password,
   phone,
   website,
-  address
+  address,
 ) => {
   e.preventDefault();
   try {
@@ -38,7 +39,7 @@ export const handleRegister = (
         phone,
         website,
         address,
-      })
+      }),
     );
   } catch (error) {
     console.log(error);
